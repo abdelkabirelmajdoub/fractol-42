@@ -1,26 +1,29 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*	                                                                        */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-majd <ael-majd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 09:51:51 by ael-majd          #+#    #+#             */
-/*   Updated: 2025/03/01 12:08:28 by ael-majd         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:36:34 by ael-majd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int get_color(int iter, int max_iter)
+int	get_color(int iter, int max_iter)
 {
-    if (iter == max_iter)
-        return (0x000000);
-    
-    int red = (iter * 5) % 256;
-    int green = (iter * 7) % 256;
-    int blue = (iter * 11) % 256;
-    return ((red << 16) | (green << 8) | blue);
+	int	red;
+	int	green;
+	int	blue;
+
+	if (iter == max_iter)
+		return (0x000000);
+	red = (iter * 5) % 256;
+	green = (iter * 7) % 256;
+	blue = (iter * 11) % 256;
+	return ((red << 16) | (green << 8) | blue);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -56,8 +59,8 @@ void	after_virgul(const char *s, double *r, int *i)
 double	ft_atod(const char *s)
 {
 	double	r;
-	int i;
-	int sign;
+	int		i;
+	int		sign;
 
 	r = 0;
 	i = 0;
@@ -79,8 +82,8 @@ double	ft_atod(const char *s)
 	return (r * sign);
 }
 
-void error(void)
+void	error(void)
 {
-	write(2, "Usage: ./fractol mandelbrot OR ./fractol julia <cr> <ci>\n", 57);
+	write(2, "Usage: ./fractol Mandelbrot OR ./fractol Julia <cr> <ci>\n", 57);
 	exit(1);
 }

@@ -16,11 +16,8 @@ void	put_pixel(t_fractol *fractol, int x, int y, int color)
 {
 	int	offset;
 
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		offset = (y * fractol->line_len) + (x * (fractol->bpp / 8));
-		*(unsigned int *)(fractol->addr + offset) = color;
-	}
+	offset = (y * fractol->line_len) + (x * (fractol->bpp / 8));
+	*(unsigned int *)(fractol->addr + offset) = color;
 }
 
 int	mandelbrot(double cr, double ci)
@@ -51,10 +48,8 @@ void	draw_mandelbrot(t_fractol *fractol)
 		x = 0;
 		while (x < WIDTH)
 		{
-			cr = (x - WIDTH / 2.0) * (4.0 / WIDTH) 
-				* fractol->zoom + fractol->move_x;
-			ci = (y - HEIGHT / 2.0) * (4.0 / HEIGHT) 
-				* fractol->zoom + fractol->move_y;
+			cr = (x - WIDTH / 2.0) * (4.0 / WIDTH) * fractol->zoom;
+			ci = (y - HEIGHT / 2.0) * (4.0 / HEIGHT) * fractol->zoom;
 			iter = mandelbrot(cr, ci);
 			put_pixel(fractol, x, y, get_color(iter, 100));
 			x++;
@@ -92,12 +87,10 @@ void	draw_julia(t_fractol *fractol)
 		x = 0;
 		while (x < WIDTH)
 		{
-			zr = (x - WIDTH / 2.0) * (4.0 / WIDTH) 
-				* fractol->zoom + fractol->move_x;
-			zi = (y - HEIGHT / 2.0) * (4.0 / HEIGHT) 
-				* fractol->zoom + fractol->move_y;
+			zr = (x - WIDTH / 2.0) * (4.0 / WIDTH) * fractol->zoom;
+			zi = (y - HEIGHT / 2.0) * (4.0 / HEIGHT) * fractol->zoom;
 			iter = julia(zr, zi, fractol->julia_cr, fractol->julia_ci);
-			put_pixel(fractol, x, y, get_color(iter, 100));
+			put_pixel(fractol, x, HEIGHT - y - 1, get_color(iter, 100));
 			x++;
 		}
 		y++;

@@ -1,13 +1,12 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = fractol
-SRC =  fractol.c events.c utils.c draw.c 
+SRC = src/fractol.c src/events.c src/utils.c src/draw.c  
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make all -C minilibx
 	$(CC) $(CFLAGS)  $(OBJ) -L./minilibx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	
 %.o: %.c
@@ -15,9 +14,12 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f $(OBJ)
+	make clean -C fbonus
 
 fclean: clean
-	@make clean -C minilibx
 	rm -f $(NAME)
 
 re: fclean all
+
+bonus:
+	@make all -C fbonus
