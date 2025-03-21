@@ -48,3 +48,32 @@ void	events_exit(t_fractol *fractol)
 	mlx_key_hook(fractol->win, key_hook, fractol);
 	mlx_mouse_hook(fractol->win, mouse_hook, fractol);
 }
+
+int	is_valid(char *s)
+{
+	int	i;
+	int	dot;
+
+	if (!s || !*s)
+		return (0);
+	i = 0;
+	dot = 0;
+	skip_space(s, &i);
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	if (!s[i] || s[i] == '.')
+		return (0);
+	while (s[i] && s[i] != ' ')
+	{
+		if (s[i] == '.')
+		{
+			dot++;
+			if (dot > 1)
+				return (0);
+		}
+		else if (!(s[i] >= '0' && s[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (skip_space(s, &i), s[i] == '\0');
+}

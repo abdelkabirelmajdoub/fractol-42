@@ -7,17 +7,17 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS)  $(OBJ) -L./minilibx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS)  $(OBJ)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	
-%.o: %.c
+%.o: %.c src/fractol.h
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-	make clean -C fbonus
+	@rm -f $(OBJ)
+	@make clean -C fbonus
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

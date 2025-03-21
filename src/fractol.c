@@ -6,7 +6,7 @@
 /*   By: ael-majd <ael-majd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 10:24:26 by ael-majd          #+#    #+#             */
-/*   Updated: 2025/03/10 15:21:21 by ael-majd         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:54:29 by ael-majd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	init_fractal(t_fractol *fractol)
 	fractol->zoom = 1.0;
 }
 
+void	skip_space(char *s, int *i)
+{
+	while (s[*i] == ' ')
+		(*i)++;
+}
+
+void	num_err(void)
+{
+	write(2, "Entre valid number\n", 19);
+	exit(1);
+}
+
 int	main(int ac, char **av)
 {
 	t_fractol	fractol;
@@ -32,9 +44,14 @@ int	main(int ac, char **av)
 		fractol.type = 0;
 	else if (ac == 4 && !ft_strcmp(av[1], "Julia"))
 	{
-		fractol.type = 1;
-		fractol.julia_cr = ft_atod(av[2]);
-		fractol.julia_ci = ft_atod(av[3]);
+		if (is_valid(av[2]) == 1 && is_valid(av[3]) == 1)
+		{
+			fractol.type = 1;
+			fractol.julia_cr = ft_atod(av[2]);
+			fractol.julia_ci = ft_atod(av[3]);
+		}
+		else
+			num_err();
 	}
 	else
 		error();

@@ -6,7 +6,7 @@
 /*   By: ael-majd <ael-majd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:51:24 by ael-majd          #+#    #+#             */
-/*   Updated: 2025/03/10 17:37:53 by ael-majd         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:51:04 by ael-majd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	key_hook(int keycode, t_fractol *fractol)
 		fractol->move_x -= 0.05 * fractol->zoom;
 	if (keycode == 124)
 		fractol->move_x += 0.05 * fractol->zoom;
-	if (keycode == 126)
-		fractol->move_y -= 0.05 * fractol->zoom;
 	if (keycode == 125)
+		fractol->move_y -= 0.05 * fractol->zoom;
+	if (keycode == 126)
 		fractol->move_y += 0.05 * fractol->zoom;
 	if (keycode == 69)
 		fractol->intesite += 10;
@@ -77,4 +77,33 @@ void	events_exit(t_fractol *fractol)
 	mlx_hook(fractol->win, 17, 0, notify_exit, fractol);
 	mlx_key_hook(fractol->win, key_hook, fractol);
 	mlx_mouse_hook(fractol->win, mouse_hook, fractol);
+}
+
+int	is_valid(char *s)
+{
+	int	i;
+	int	dot;
+
+	if (!s || !*s)
+		return (0);
+	i = 0;
+	dot = 0;
+	skip_space(s, &i);
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	if (!s[i] || s[i] == '.')
+		return (0);
+	while (s[i] && s[i] != ' ')
+	{
+		if (s[i] == '.')
+		{
+			dot++;
+			if (dot > 1)
+				return (0);
+		}
+		else if (!(s[i] >= '0' && s[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (skip_space(s, &i), s[i] == '\0');
 }

@@ -6,7 +6,7 @@
 /*   By: ael-majd <ael-majd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:15:18 by ael-majd          #+#    #+#             */
-/*   Updated: 2025/03/10 15:29:53 by ael-majd         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:12:09 by ael-majd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FRACTOL_H
 # include <stdlib.h> 
 # include <unistd.h> 
-# include "../minilibx/mlx.h"
+# include <mlx.h>
 
 # define HEIGHT	800
 # define WIDTH	800
@@ -45,4 +45,6 @@ void	draw_julia(t_fractol *fractol);
 void	draw_mandelbrot(t_fractol *fractol);
 int		ft_strcmp(const char *s1, const char *s2);
 double	ft_atod(const char *s);
+int		is_valid(char *s);
+void	skip_space(char *s, int *i);
 #endif
